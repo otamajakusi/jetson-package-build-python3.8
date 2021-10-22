@@ -1,0 +1,14 @@
+FROM nvcr.io/nvidia/l4t-base:r32.5.0
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+        apt-get install -y --no-install-recommends \
+        make g++ cmake python3.8 python3.8-dev python3-pip build-essential git ninja-build
+
+RUN git clone --recursive --depth=1 --recurse-submodules --shallow-submodules -j4 https://github.com/skvark/opencv-python.git
+
+RUN python3.8 -m pip install --upgrade pip
+RUN python3.8 -m pip install setuptools
+RUN cd opencv-python && python3.8 -m pip wheel . --verbose
+RUN mkdir /package
