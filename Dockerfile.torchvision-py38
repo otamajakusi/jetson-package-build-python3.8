@@ -4,27 +4,19 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
-        make g++ cmake wget python3.8 python3.8-dev python3-pip build-essential git
+        make g++ cmake wget python3.8 python3.8-dev python3-pip build-essential \
+        git ninja-build libomp5 libopenmpi-dev libopenblas-base \
+        libavcodec-dev libavformat-dev libavutil-dev libswscale-dev \
+        libavresample3 libgstreamer-opencv1.0-0 libgstreamer1.0-dev \
+        libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libjpeg-dev
 
 RUN python3.8 -m pip install --upgrade pip
 RUN python3.8 -m pip install setuptools gdown
+
 # torch is required for building torchvision
 RUN gdown https://drive.google.com/uc?id=1V231Nmx42vXTo5nq_YsV_BouZwBE9vjh
 RUN python3.8 -m pip install torch-1.8.0a0+56b43f4-cp38-cp38-linux_aarch64.whl
 
-RUN git clone --depth=1 https://github.com/pytorch/vision torchvision -b v0.9.0 
-RUN apt-get install -y --no-install-recommends \
-        libomp5 libopenmpi-dev 
-RUN apt-get install -y --no-install-recommends \
-        libopenblas-base
-RUN apt-get install -y --no-install-recommends \
-        libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample3 \
-        libgstreamer-opencv1.0-0 libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev
-RUN apt-get install -y --no-install-recommends \
-        libjpeg-dev
-RUN apt-get install -y --no-install-recommends \
-    ninja-build 
+RUN git clone --depth=1 https://github.com/pytorch/vision torchvision -b release/0.9
 
-RUN ln -s /usr/lib/aarch64-linux-gnu/libcudnn.so.8.2.1 /usr/lib/aarch64-linux-gnu/libcudnn.so.8
-RUN mkdir /package
-# RUN cd torchvision && TORCH_CUDA_ARCH_LIST="5.3;6.2;7.2" FORCE_CUDA=1 python3.8 setup.py bdist -j $(nproc)
+RUN mkdir /packages
