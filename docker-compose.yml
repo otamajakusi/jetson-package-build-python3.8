@@ -863,6 +863,15 @@ x-volumes: &volumes
   - .:/packages
 
 services:
+  pytorch:
+    build:
+      context: .
+      dockerfile: Dockerfile.pytorch-py38
+    command: >
+      bash -c
+      "python3.8 setup.py bdist_wheel &&
+      cp dist/* /packages"
+    volumes: *volumes
   torchvision:
     build:
       context: .

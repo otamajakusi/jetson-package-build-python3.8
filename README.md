@@ -3,16 +3,17 @@
 ## Build
 
 ```bash
-docker build -f Dockerfile.opencv-python-py38 -t opencv-python-py38 .
+time JETPACK_ROOT=/path/to/jetpack/mounted bash build.sh
 ```
 
-real    74m1.761s
-user    0m0.343s
-sys     0m0.154s
-
-## Run
+real    82m47.834s  
+user    0m1.987s  
+sys     0m0.472s  
 
 ```bash
-docker run -it --rm -v $(pwd):/package opencv-python-py38 \
-    bash -c 'cp $(find /opencv-python -name "*.whl") /package'
+time docker-compose build pytorch
 ```
+
+real    257m21.193s
+user    0m1.335s
+sys     0m0.589s
