@@ -18,5 +18,4 @@ RUN gdown https://drive.google.com/uc?id=1V231Nmx42vXTo5nq_YsV_BouZwBE9vjh
 RUN python3.8 -m pip install torch-1.8.0a0+56b43f4-cp38-cp38-linux_aarch64.whl
 
 RUN git clone --depth=1 https://github.com/pytorch/vision torchvision -b release/0.9
-
-RUN mkdir /packages
+WORKDIR torchvision

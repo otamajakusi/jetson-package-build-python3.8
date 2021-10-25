@@ -15,5 +15,5 @@ RUN git clone --recursive --depth=1 --recurse-submodules --shallow-submodules ht
 RUN python3.8 -m pip install --upgrade pip
 RUN python3.8 -m pip install setuptools
 
-RUN cd opencv-python && python3.8 -m pip wheel . --verbose
-RUN mkdir /packages
+WORKDIR opencv-python
+RUN python3.8 -m pip wheel . --verbose
