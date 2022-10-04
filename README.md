@@ -1,3 +1,5 @@
+Use this repository: https://github.com/otamajakusi/build_jetson_nano_libraries
+
 # jetson-package-build-python3.8
 
 ## Build
